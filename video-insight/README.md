@@ -1,297 +1,96 @@
-# video-understanding-plugin
+# video-insight
 
-**A Claude Code plugin that gives AI deep understanding of any video.**
+> Give Claude eyes. Drop any video — get keyframes, OCR text, colors, motion, transcript, and production-ready code.
 
-Feed it a screen recording, 3D walkthrough, or marketing demo — it extracts 10 structured signals and gives Claude everything it needs to build frontend code, write specs, generate tests, compare versions, and more.
-
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
-[![MCP](https://img.shields.io/badge/protocol-MCP-purple)](https://modelcontextprotocol.io)
-
----
-
-## The problem
-
-Video is sequential, multi-modal, and time-based. AI can't reason about it natively. This plugin bridges that gap by converting any video into a rich structured **manifest** that Claude can read, reason about, and act on — without needing a separate AI API call.
-
-**Claude Code IS the AI.** The plugin only does extraction.
-
----
-
-## What it extracts
-
-| Signal | Method | Output |
-|--------|--------|--------|
-| Smart keyframes | PySceneDetect AdaptiveDetector | One PNG per scene change (not uniform intervals) |
-| Burst frames | OpenCV frame sampling | Extra frames inside high-motion scenes for animation states |
-| Audio transcript | faster-whisper | Timestamped speech segments |
-| OCR text | EasyOCR (threshold 0.25) | Text visible on screen per scene |
-| Color palette | OpenCV k-means | Dominant colors with hex + proportion per scene |
-| Motion events | Frame differencing | Type: animation / scroll / cut / none |
-| Scene diffs | Pixel-level diff | What changed between consecutive scenes, with bounding boxes |
-| UI components | Contour heuristics | navbar, button, input, card, modal, list_item, icon, divider |
-| Font/typography | EasyOCR bbox analysis | Size class, weight hint, text sample per scene |
-| Cursor tracking | Dense optical flow | Mouse path + hover region per scene |
-| Scroll indicators | Edge strip analysis | Scrollbar position percentage |
-| Loading states | Hough + contour analysis | spinner / skeleton / progress_bar |
-| Confidence scores | Sharpness + OCR + boundary | Per-scene reliability 0–1 |
-
----
-
-## 17 MCP tools
-
-| Tool | What Claude can do with it |
-|------|---------------------------|
-| `analyze_video` | Full extraction pipeline — generates manifest.json + report.html |
-| `build_frontend_from_video` | Build pixel-perfect React or HTML from a screen recording |
-| `extract_colors` | Extract a complete design token palette |
-| `design_spec` | Generate a full design specification |
-| `write_copy` | Extract all visible text + narration verbatim |
-| `describe_3d` | Describe geometry, materials, camera path from 3D walkthrough |
-| `generate_tests` | Generate Playwright or Cypress test file from screen recording |
-| `export_tokens` | Export colors as Tailwind config / CSS variables / Figma tokens |
-| `user_flow` | Reconstruct step-by-step user journey |
-| `generate_animations` | Generate CSS @keyframes or Framer Motion from animated scenes |
-| `watch_directory` | Auto-analyze a folder of videos (hash-cached, safe to re-run) |
-| `generate_report` | Self-contained HTML visual report with all keyframes |
-| `generate_prd` | Product Requirements Document from a demo video |
-| `compare_videos` | Structural A/B diff between two recordings |
-| `generate_storybook` | Storybook stories for every detected UI component |
-| `generate_changelog` | User-facing changelog from before/after recordings |
-| `annotate_video` | Debug frames with OCR boxes, cursor path, motion regions |
-
-## 17 slash skills
-
-Skills are namespaced under `video-understanding:` when installed as a plugin:
-
-```
-/video-understanding:analyze-video         /video-understanding:build-from-video
-/video-understanding:extract-colors        /video-understanding:design-spec
-/video-understanding:write-copy            /video-understanding:describe-3d
-/video-understanding:generate-tests        /video-understanding:export-tokens
-/video-understanding:user-flow             /video-understanding:generate-animations
-/video-understanding:watch                 /video-understanding:generate-report
-/video-understanding:generate-prd         /video-understanding:compare-videos
-/video-understanding:storybook             /video-understanding:playwright-tests
-/video-understanding:changelog
-```
-
----
-
-## How it works
-
-```
-Video file
-    │
-    ├─ ffprobe ─────────────────────→ metadata (duration, resolution, fps, video_type)
-    ├─ PySceneDetect ───────────────→ scene boundaries + keyframe PNGs
-    ├─ faster-whisper ──────────────→ timestamped transcript
-    │
-    └─ Per scene (parallel threads):
-         ├─ EasyOCR ────────────────→ text visible on screen
-         ├─ k-means clustering ─────→ dominant color palette
-         ├─ frame differencing ─────→ motion type + level
-         ├─ Hough + contours ───────→ UI component detection
-         ├─ optical flow ───────────→ cursor path + velocity
-         ├─ edge analysis ──────────→ scroll position
-         ├─ HoughCircles + gray ────→ loading state type
-         ├─ Laplacian variance ─────→ frame sharpness / confidence
-         └─ burst frame extraction ─→ animation keyframe states
-                     │
-               manifest.json + report.html
-                     │
-              Claude Code reads:
-              - All keyframe PNGs
-              - Manifest JSON
-              - Annotated debug frames
-                     │
-         ┌───────────────────────────────────┐
-         │  React / HTML / Tests / PRD / etc │
-         └───────────────────────────────────┘
-```
-
----
-
-## Video Manifest format
-
-Every video produces a structured JSON manifest:
-
-```json
-{
-  "metadata": {
-    "duration_seconds": 13.6,
-    "resolution": "1932x1080",
-    "fps": 58.0,
-    "has_audio": false,
-    "video_type": "component_demo"
-  },
-  "video_hash": "1217c8b0ff429508",
-  "scenes": [
-    {
-      "id": "scene_0",
-      "start": 0.0,
-      "end": 3.2,
-      "keyframe_path": "frames/scene_0.png",
-      "detected_text": ["Dashboard", "Analytics"],
-      "color_palette": [{"hex": "#131313", "rgb": [19,19,19], "proportion": 0.48}],
-      "ui_components": ["navbar", "button", "card"],
-      "fonts": [{"size_class": "heading", "height_px": 32, "weight_hint": "bold"}],
-      "motion_detected": true,
-      "motion_type": "animation",
-      "motion_level": 18.7,
-      "cursor": {"cursor_detected": true, "cursor_path": [{"x": 0.5, "y": 0.3, "timestamp": 1.2}]},
-      "scroll": {"has_scrollbar": false, "scroll_direction": "none"},
-      "loading": {"has_loading": false, "loading_type": "none"},
-      "confidence": {"frame_sharpness": 0.72, "ocr_confidence": 0.6, "overall": 0.64},
-      "annotated_frame_path": "annotated/scene_0_annotated.png",
-      "transcript_overlap": "",
-      "diff_from_previous": {"diff_score": 45.2, "change_type": "partial"}
-    }
-  ],
-  "color_palette": [{"hex": "#131313", "rgb": [19,19,19], "proportion": 0.48}],
-  "typography": [{"size_class": "heading", "height_px": 32, "weight_hint": "bold"}],
-  "summary": {
-    "total_scenes": 5,
-    "ui_components_detected": ["button", "card", "icon"],
-    "dominant_colors": ["#131313", "#f8f8f8"],
-    "avg_confidence": 0.25,
-    "loading_scenes": [],
-    "cursor_active_scenes": ["scene_0", "scene_1"]
-  }
-}
-```
-
----
+video-insight is a Claude Code plugin that deeply understands video recordings. Point it at any screen recording, product demo, or video file and it extracts 13 structured signals — then use 12 skills to turn that data into frontend code, design specs, tests, PRDs, user flows, and more.
 
 ## Installation
 
-> **Note:** This plugin runs a Python MCP server. Python dependencies must be installed separately — the Claude Code plugin system does not run `pip install` automatically.
+```
+/plugin marketplace add gowtham012/Claude-plugins
+/plugin install video-insight@Claude-plugins
+```
 
-### Step 1 — Prerequisites
-
+Requires `uv` for dependency management:
 ```bash
-brew install ffmpeg          # macOS
-sudo apt-get install ffmpeg  # Linux
-python3 --version            # must be 3.10+
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-No Anthropic API key required. Claude Code itself handles all AI reasoning.
+## Skills
 
-### Step 2 — Install Python dependencies
+### Analysis
 
-```bash
-git clone https://github.com/gowtham/video-understanding-plugin
-cd video-understanding-plugin
-pip install -e .
-```
+**`/video-insight:analyze-video <path>`**
+Full pipeline — extracts all 13 signals and produces a structured markdown report with scene breakdown, key content, and UI/UX notes.
 
-### Step 3 — Install the plugin
+**`/video-insight:extract-colors <path>`**
+K-means color clustering across all keyframes. Returns hex codes by dominance, semantic token assignments (background/surface/accent/text), dark/light mode detection, and per-scene palettes.
 
-**Option A — Official marketplace (recommended once listed):**
+**`/video-insight:write-copy <path>`**
+All visible text via OCR + full narration transcript, organized by scene and order of appearance. Ready to paste verbatim.
 
-```
-/plugin install video-understanding@claude-plugins-official
-```
+**`/video-insight:user-flow <path>`**
+Reconstructs the step-by-step user journey from scene transitions, motion types, and text changes. Outputs a numbered markdown flow with timestamps.
 
-**Option B — Direct from GitHub:**
+**`/video-insight:describe-3d <path>`**
+Tuned for 3D walkthroughs and CAD recordings. Classifies camera movement (orbit, pan, dolly, cut) per scene.
 
-Inside Claude Code:
+### Code generation
 
-```
-/plugin marketplace add gowtham/video-understanding-plugin
-/plugin install video-understanding@video-understanding-plugin
-```
+**`/video-insight:build-from-video <path> [react|html]`**
+Generates pixel-perfect frontend code from a screen recording. Uses keyframes, OCR text, colors, and motion to reconstruct the UI.
+- `react` → `App.jsx` + `App.css`
+- `html` → `index.html` (self-contained, inline CSS + JS)
 
-**Option C — Local development:**
+**`/video-insight:generate-tests <path> [playwright|cypress]`**
+Infers user actions from motion and OCR text changes, then generates a complete test file with real selectors and assertions.
 
-```bash
-claude --plugin-dir /path/to/video-understanding-plugin
-```
+**`/video-insight:generate-animations <path> [css|framer-motion]`**
+Uses burst frames as keyframe states to write exact CSS `@keyframes` or Framer Motion code replicating animations from the video.
 
----
+### Design & documentation
 
-## Usage
+**`/video-insight:design-spec <path>`**
+Figma-style design specification — color tokens, component inventory, exact copy, motion catalogue, and spacing hints in one document.
 
-```
-# Deeply understand a video
-/video-understanding:analyze-video /path/to/recording.mov
+**`/video-insight:export-tokens <path> [tailwind|css|figma|all]`**
+Exports the color palette as:
+- `tailwind.config.js` — `theme.extend.colors` block
+- `tokens.css` — `:root { --color-* }` custom properties
+- `figma-tokens.json` — Figma Tokens plugin format
 
-# Build a React component from a screen recording
-/video-understanding:build-from-video /path/to/ui-demo.mp4 react ./src
+**`/video-insight:generate-prd <path>`**
+Full Product Requirements Document from a product demo — overview, user stories, functional requirements, UI specs per screen, and open questions.
 
-# Build a self-contained HTML page
-/video-understanding:build-from-video /path/to/landing-page.mp4 html
+**`/video-insight:compare-videos <path_a> <path_b>`**
+Structural A/B diff — visual changes, text changes, flow changes, motion differences, similarity score, and a recommendation on which version is more complete.
 
-# Extract design tokens (Tailwind + CSS + Figma formats)
-/video-understanding:figma-tokens /path/to/design-demo.mp4
+## What gets extracted
 
-# Generate Playwright tests from a user flow recording
-/video-understanding:playwright-tests /path/to/checkout-flow.mp4
+| Signal | Description |
+|--------|-------------|
+| Keyframes | One representative frame per scene |
+| OCR text | Every string visible on screen, timestamped |
+| Color palette | Hex codes by dominance + semantic assignments |
+| Motion events | Animated scenes with motion type classification |
+| Transcript | Full speech-to-text with timestamps |
+| Cursor path | Click and movement tracking |
+| Scroll indicators | Scroll events detected per scene |
+| Loading states | Spinners, skeletons, progress bars |
+| Burst frames | High-FPS capture of fast animations |
+| Scene diffs | Frame-level visual change detection |
+| Fonts | Font detection across keyframes |
+| Confidence scores | Reliability rating per extracted signal |
+| Video hash | Deduplication across repeated analyses |
 
-# Compare two versions of a product
-/video-understanding:changelog /path/to/v1.mp4 /path/to/v2.mp4
+## Requirements
 
-# Generate Storybook stories for every component
-/video-understanding:storybook /path/to/component-library.mp4
+- Python 3.10+
+- `uv` — manages all ML dependencies automatically on first run
 
-# Generate a PRD from a product demo
-/video-understanding:generate-prd /path/to/product-demo.mp4
-
-# Auto-analyze a folder of recordings
-/video-understanding:watch ~/Desktop/recordings
-
-# Visual debug report with OCR boxes + cursor path
-/video-understanding:annotate-video /path/to/recording.mp4
-```
-
----
-
-## macOS screen recordings
-
-macOS sets an access control attribute on screen recordings that blocks ffprobe. Copy the file first:
-
-```bash
-cp ~/Desktop/recording.mov /tmp/recording.mov
-# then use /tmp/recording.mov with the plugin
-```
-
----
-
-## Performance
-
-The plugin caches manifests in-process and on disk:
-
-- **In-process cache**: Repeated tool calls on the same video within a Claude session return instantly (0ms)
-- **Disk cache**: `watch_directory` uses SHA-256 file hashing — skips videos that haven't changed
-- **Parallel enrichment**: Per-scene OCR, color, motion, cursor, fonts run simultaneously via `ThreadPoolExecutor`
-
-Analysis time for a 13s 1080p screen recording: ~100s on CPU (mostly EasyOCR initialization).
-
----
-
-## Running tests
-
-```bash
-make install   # pip install -e ".[dev]"
-make test      # pytest — no video files or GPU required
-```
-
-Tests are fully mocked (ffprobe, cv2, EasyOCR, faster-whisper, PySceneDetect).
-
----
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welcome for:
-
-- Better video type auto-detection
-- GPU acceleration paths for EasyOCR / faster-whisper
-- Multi-language OCR and transcription
-- New output skills (Figma export, accessibility audit, etc.)
-- Windows/Linux compatibility fixes
-
----
+Optional (for faster transcription):
+- GPU with CUDA support
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT

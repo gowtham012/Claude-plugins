@@ -1,5 +1,3 @@
-# Claude-plugins
-
 # Claude Plugins
 
 Two Claude Code plugins by Gowtham — install once, use forever.
