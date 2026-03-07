@@ -1,0 +1,35 @@
+{
+  "name": "Claude-plugins",
+  "owner": {
+    "name": "gowtham012"
+  },
+  "metadata": {
+    "description": "Claude Code plugins by Gowtham — carry-forward for session memory, video-insight for deep video understanding."
+  },
+  "plugins": [
+    {
+      "name": "carry-forward",
+      "source": "./carry-forward",
+      "description": "Persists Claude Code session context across sessions. Auto-saves after every response via Stop hook. Auto-loads at session start via CLAUDE.md @import.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/carry-forward",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["memory", "context", "session", "persistence"]
+    },
+    {
+      "name": "video-insight",
+      "source": "./video-insight",
+      "description": "Give Claude deep understanding of any video. Extracts keyframes, OCR text, colors, motion events, cursor path, fonts, loading states, and confidence scores. 12 skills for frontend code, design specs, tests, PRDs, and more.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/video-insight",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["video", "screen-recording", "ocr", "design-tokens", "frontend", "mcp"]
+    }
+  ]
+}
