@@ -1,33 +1,56 @@
-# Claude Plugins
+<p align="center">
+  <img src="assets/pitlane-logo.png" alt="Pitlane" width="400" />
+</p>
 
-Two Claude Code plugins by Gowtham — install once, use forever.
+<h1 align="center">Pitlane Plugins for Claude Code</h1>
 
-| Plugin | What it does |
-|--------|-------------|
-| [carry-forward](#carry-forward) | Remembers your work across Claude sessions |
-| [video-insight](#video-insight) | Deeply understands any video file |
+<p align="center">
+  <strong>Two open-source plugins that give Claude Code superpowers — persistent memory and deep video understanding.</strong>
+</p>
+
+<p align="center">
+  <a href="#quick-start">Quick Start</a> &bull;
+  <a href="#-carry-forward">carry-forward</a> &bull;
+  <a href="#-video-insight">video-insight</a> &bull;
+  <a href="#contributing">Contributing</a> &bull;
+  <a href="#license">License</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square" alt="Python 3.10+" />
+  <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="MIT License" />
+  <img src="https://img.shields.io/badge/claude_code-plugin-blueviolet?style=flat-square" alt="Claude Code Plugin" />
+</p>
 
 ---
 
-## Prerequisites
+## Quick Start
 
-- Python 3.10+
-- [`uv`](https://docs.astral.sh/uv/getting-started/installation/) — manages dependencies automatically
+### Prerequisites
+
+- **Python 3.10+**
+- **[uv](https://docs.astral.sh/uv/getting-started/installation/)** — manages all dependencies automatically
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-For video-insight, you also need `ffmpeg`:
+For **video-insight**, you also need **ffmpeg**:
+
 ```bash
 # macOS
 brew install ffmpeg
 
 # Ubuntu / Debian
 sudo apt install ffmpeg
+
+# Windows (chocolatey)
+choco install ffmpeg
 ```
 
-## Installation
+### Install
+
+Inside Claude Code, run:
 
 ```
 /plugin marketplace add gowtham012/Claude-plugins
@@ -35,32 +58,54 @@ sudo apt install ffmpeg
 /plugin install video-insight@Claude-plugins
 ```
 
+That's it. Both plugins are ready to use.
+
 ---
 
-## carry-forward
+<br/>
 
-> Never lose context between Claude Code sessions again.
+## <img src="https://img.shields.io/badge/plugin-carry--forward-orange?style=for-the-badge" alt="carry-forward" />
 
-Every time you start a new Claude session, it forgets everything. carry-forward fixes that — it auto-saves what you were working on after every response and auto-loads it at the start of every session.
+### Never lose context between Claude Code sessions again.
+
+Every time you start a new Claude Code session, it forgets everything — what you were building, decisions you made, files you touched, what comes next. **carry-forward** fixes that permanently.
+
+It auto-saves a structured summary of your work after every Claude response and auto-loads it when you start a new session. Zero friction, zero commands after the one-time setup.
 
 ### How it works
 
-1. Run `/carry-forward:setup` once in your project
-2. Claude adds `@carry-forward/context.md` to your `CLAUDE.md`
-3. From then on — context saves automatically after every response and loads automatically when you start a new session
+```
+Session 1                     Disk                      Session 2
+───────────────────           ───────────────────        ───────────────────
+/carry-forward:setup  -->     CLAUDE.md gets             Open Claude Code
+                              @carry-forward/            Claude reads context.md
+... work normally ...         context.md                 automatically at startup
 
-### Skills
+Stop hook fires       -->     log.jsonl grows            Claude already knows:
+after every response          (auto, silent)             - Current task
+                                                         - Files in play
+/carry-forward:save   -->     context.md updated         - Decisions made
+                              (rich summary)             - Next steps
 
-| Skill | What it does |
-|-------|-------------|
-| `/carry-forward:setup` | One-time setup for a project |
-| `/carry-forward:save` | Save a rich structured summary of the current session |
-| `/carry-forward:load` | Review what was saved from your last session |
-| `/carry-forward:clear` | Reset context and archive the log |
+Close Claude Code                                        Just say "continue"
+```
+
+### One-time setup
+
+```
+/carry-forward:setup
+```
+
+This creates a `carry-forward/` directory in your project, wires up `CLAUDE.md` with an `@import`, and you're done. Restart Claude Code once — from then on, context loads automatically at every session start.
 
 ### What gets saved
 
 ```markdown
+---
+last_saved: 2026-03-07T10:30:00Z
+project: my-app
+---
+
 ## Current Task
 Implementing JWT refresh flow in useAuth.ts
 
@@ -80,61 +125,134 @@ Implementing JWT refresh flow in useAuth.ts
 - Token refresh strategy (silent vs. re-login) undecided
 ```
 
-### Requirements
-
-- Python 3.10+
-- `uvx` (installed automatically with uv)
-
----
-
-## video-insight
-
-> Give Claude eyes. Drop any video — get keyframes, OCR text, colors, motion, transcript, and production-ready code.
-
-video-insight extracts 13 signals from any video recording and exposes 17 skills to turn that data into frontend code, design specs, test files, PRDs, user flows, and more.
-
 ### Skills
 
 | Skill | What it does |
-|-------|-------------|
-| `/video-insight:analyze-video` | Full analysis — keyframes, OCR, motion, transcript, colors |
-| `/video-insight:build-from-video` | Generate React or HTML from a screen recording |
-| `/video-insight:extract-colors` | Pull exact color palette with semantic token assignments |
-| `/video-insight:design-spec` | Figma-style design spec — tokens, components, copy, motion |
-| `/video-insight:write-copy` | Extract all visible text and narration verbatim |
-| `/video-insight:generate-tests` | Screen recording → Playwright or Cypress test file |
-| `/video-insight:playwright-tests` | Generate TypeScript Playwright test file from recording |
-| `/video-insight:export-tokens` | Export colors as Tailwind config, CSS variables, or Figma tokens |
-| `/video-insight:figma-tokens` | Export Figma Variables tokens, CSS properties, and Tailwind config |
-| `/video-insight:user-flow` | Reconstruct step-by-step user journey from a recording |
-| `/video-insight:generate-animations` | CSS @keyframes or Framer Motion from animated scenes |
-| `/video-insight:describe-3d` | Analyze 3D walkthroughs — camera path, materials, geometry |
-| `/video-insight:generate-prd` | Full PRD from a product demo video |
-| `/video-insight:compare-videos` | A/B diff two recordings — visual, text, flow, motion |
-| `/video-insight:changelog` | User-facing changelog from before/after recordings |
-| `/video-insight:storybook` | Generate Storybook stories for detected UI components |
-| `/video-insight:watch` | Scan a directory and auto-analyze new video files |
+|:------|:-------------|
+| `/carry-forward:setup` | One-time setup — creates directory, wires CLAUDE.md `@import` |
+| `/carry-forward:save` | Save a rich structured summary of the current session |
+| `/carry-forward:load` | Review what was saved from your last session |
+| `/carry-forward:clear` | Reset context and archive the log |
 
-### What gets extracted
+### Storage
 
-- **Keyframes** — one representative frame per scene
-- **OCR text** — every string visible on screen, timestamped
-- **Color palette** — hex codes by dominance + semantic token assignments
-- **Motion events** — which scenes have animations and what type
-- **Transcript** — full speech-to-text with timestamps
-- **Cursor path** — where the user clicked and moved
-- **Loading states** — spinners, skeletons, progress bars detected
-- **Confidence scores** — reliability rating per extracted signal
+```
+your-project/
+├── CLAUDE.md                           <-- @carry-forward/context.md added here
+└── carry-forward/
+    ├── context.md                      <-- auto-loaded every session start
+    ├── log.jsonl                       <-- auto-appended after every response
+    └── log.2026-03-07T10-30.jsonl.bak  <-- created by /clear
+```
 
 ### Requirements
 
 - Python 3.10+
-- `uv` (manages all ML dependencies automatically)
-- `ffmpeg` (includes `ffprobe`) — required for video metadata extraction
-- Optional: GPU for faster transcription with faster-whisper
+- `uvx` (installed automatically with `uv`)
 
 ---
 
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-video--insight-blue?style=for-the-badge" alt="video-insight" />
+
+### Give Claude eyes. Drop any video — get structured data and production-ready code.
+
+**video-insight** deeply understands video recordings. Point it at any screen recording, product demo, 3D walkthrough, or marketing video and it extracts **13 structured signals** — then use **17 skills** to turn that data into frontend code, design specs, tests, PRDs, user flows, changelogs, Storybook stories, and more.
+
+No API keys needed. No cloud uploads. Everything runs locally.
+
+### What gets extracted
+
+| Signal | Description |
+|:-------|:------------|
+| **Keyframes** | One representative frame per scene, extracted via scene detection |
+| **OCR text** | Every string visible on screen, timestamped and organized by scene |
+| **Color palette** | Hex codes ranked by dominance + semantic token assignments (background/surface/accent/text) |
+| **Motion events** | Per-scene animation classification (scroll, fade, slide, cut, none) |
+| **Transcript** | Full speech-to-text with timestamps via faster-whisper |
+| **Cursor path** | Click positions and movement tracking across scenes |
+| **Scroll indicators** | Scroll events detected per scene |
+| **Loading states** | Spinners, skeleton loaders, and progress bars detected |
+| **Burst frames** | High-FPS capture of fast animations for precise reproduction |
+| **Scene diffs** | Pixel-level visual change detection between consecutive keyframes |
+| **Font hints** | Font size, weight, and role estimation from text bounding boxes |
+| **Confidence scores** | Reliability rating per extracted signal |
+| **Video hash** | SHA-256 deduplication — skips re-analysis of unchanged files |
+
+### Skills
+
+#### Analysis
+
+| Skill | What it does |
+|:------|:-------------|
+| `/video-insight:analyze-video` | Full pipeline — extracts all 13 signals, produces structured markdown report |
+| `/video-insight:extract-colors` | K-means color clustering across keyframes with semantic token assignments |
+| `/video-insight:write-copy` | All visible text via OCR + full narration transcript, organized by scene |
+| `/video-insight:user-flow` | Step-by-step user journey from scene transitions, motion, and text changes |
+| `/video-insight:describe-3d` | Tuned for 3D walkthroughs — camera movement classification per scene |
+| `/video-insight:compare-videos` | Structural A/B diff — visual, text, flow, motion, similarity score |
+
+#### Code generation
+
+| Skill | What it does |
+|:------|:-------------|
+| `/video-insight:build-from-video` | Pixel-perfect React or HTML from a screen recording |
+| `/video-insight:generate-tests` | Infers user actions, generates Playwright or Cypress test file |
+| `/video-insight:playwright-tests` | TypeScript Playwright tests with typed selectors and assertions |
+| `/video-insight:generate-animations` | CSS `@keyframes` or Framer Motion from animated scenes |
+| `/video-insight:storybook` | Storybook `.stories.jsx` for every detected UI component |
+
+#### Design & documentation
+
+| Skill | What it does |
+|:------|:-------------|
+| `/video-insight:design-spec` | Figma-style spec — color tokens, component inventory, copy, motion, spacing |
+| `/video-insight:export-tokens` | Colors as Tailwind config, CSS custom properties, or Figma tokens |
+| `/video-insight:figma-tokens` | All three formats (Figma Variables, CSS, Tailwind) from one recording |
+| `/video-insight:generate-prd` | Full PRD — overview, user stories, functional requirements, UI specs |
+| `/video-insight:changelog` | User-facing changelog from before/after recordings |
+
+#### Automation
+
+| Skill | What it does |
+|:------|:-------------|
+| `/video-insight:watch` | Scan a directory, auto-analyze new videos, skip unchanged files via hash cache |
+
+### Requirements
+
+- Python 3.10+
+- `uv` — manages all ML dependencies automatically on first run
+- `ffmpeg` (includes `ffprobe`) — required for video metadata extraction
+- Optional: GPU with CUDA support for faster transcription
+
+---
+
+<br/>
+
+## Contributing
+
+We welcome contributions! See [CONTRIBUTING.md](video-insight/CONTRIBUTING.md) for development setup and guidelines.
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Make changes and add tests
+4. Open a PR
+
+Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+
+## Security
+
+To report a vulnerability, see [SECURITY.md](SECURITY.md). **Do not open a public issue for security bugs.**
+
 ## License
 
-MIT — use freely, attribution appreciated.
+MIT - see [LICENSE](LICENSE) for details.
+
+Use freely, attribution appreciated.
+
+---
+
+<p align="center">
+  Built by <a href="https://github.com/gowtham012">Gowtham</a>
+</p>
