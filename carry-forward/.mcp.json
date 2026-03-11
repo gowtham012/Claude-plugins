@@ -1,13 +1,11 @@
 {
-  "mcpServers": {
-    "carry-forward": {
-      "type": "stdio",
-      "command": "uvx",
-      "args": [
-        "--from", "fastmcp",
-        "fastmcp", "run",
-        "${CLAUDE_PLUGIN_ROOT}/src/server.py"
-      ]
-    }
+  "carry-forward": {
+    "type": "stdio",
+    "command": "uvx",
+    "args": [
+      "--from", "fastmcp",
+      "fastmcp", "run",
+      "${CLAUDE_PLUGIN_ROOT}/src/server.py"
+    ]
   }
 }
