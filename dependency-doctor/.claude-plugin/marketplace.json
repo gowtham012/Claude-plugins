@@ -1,0 +1,23 @@
+{
+  "name": "dependency-doctor",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Analyzes dependencies before installation. Checks bundle size, vulnerabilities, license compatibility across all major package managers."
+  },
+  "plugins": [
+    {
+      "name": "dependency-doctor",
+      "source": "./",
+      "description": "Analyzes dependencies before installation. Checks bundle size, vulnerabilities, license compatibility across all major package managers.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/dependency-doctor",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["dependencies","security","vulnerabilities","license","bundle-size","npm","pip"]
+    }
+  ]
+}

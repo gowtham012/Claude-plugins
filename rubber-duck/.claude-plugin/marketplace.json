@@ -1,0 +1,23 @@
+{
+  "name": "rubber-duck",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Explain-before-code enforcement. Forces Claude to explain approach and get approval before writing code."
+  },
+  "plugins": [
+    {
+      "name": "rubber-duck",
+      "source": "./",
+      "description": "Explain-before-code enforcement. Forces Claude to explain approach and get approval before writing code.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/rubber-duck",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["explain","approval","workflow","safety","review"]
+    }
+  ]
+}

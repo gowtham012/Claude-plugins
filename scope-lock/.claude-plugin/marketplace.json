@@ -1,0 +1,23 @@
+{
+  "name": "scope-lock",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Prevent scope creep. Define exact files Claude can touch. Blocks access outside boundary."
+  },
+  "plugins": [
+    {
+      "name": "scope-lock",
+      "source": "./",
+      "description": "Prevent scope creep. Define exact files Claude can touch. Blocks access outside boundary.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/scope-lock",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["scope","boundaries","safety","file-access","guard"]
+    }
+  ]
+}

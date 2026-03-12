@@ -1,0 +1,23 @@
+{
+  "name": "rollback",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "One-command undo for any Claude action. Snapshots files before/after every Write/Edit."
+  },
+  "plugins": [
+    {
+      "name": "rollback",
+      "source": "./",
+      "description": "One-command undo for any Claude action. Snapshots files before/after every Write/Edit.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/rollback",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["undo","rollback","snapshot","safety","revert"]
+    }
+  ]
+}

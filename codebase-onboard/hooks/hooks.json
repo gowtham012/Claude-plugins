@@ -1,0 +1,15 @@
+{
+  "description": "Reminds Claude when the onboarding document is stale",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/src/stop_hook.py"
+          }
+        ]
+      }
+    ]
+  }
+}

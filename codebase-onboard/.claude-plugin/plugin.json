@@ -1,0 +1,19 @@
+{
+  "name": "codebase-onboard",
+  "description": "Analyzes your codebase and generates an onboarding guide: architecture diagrams, key patterns, data flow, where-to-find-X index, and gotchas.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gowtham"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/codebase-onboard",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": [
+    "onboarding",
+    "architecture",
+    "documentation",
+    "mermaid",
+    "codebase",
+    "patterns"
+  ]
+}

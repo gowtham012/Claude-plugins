@@ -1,0 +1,23 @@
+{
+  "name": "regression-sentinel",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Continuous regression watcher. Runs tests after every edit, detects regressions, auto-reverts."
+  },
+  "plugins": [
+    {
+      "name": "regression-sentinel",
+      "source": "./",
+      "description": "Continuous regression watcher. Runs tests after every edit, detects regressions, auto-reverts.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/regression-sentinel",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["testing","regression","ci","auto-revert","watcher"]
+    }
+  ]
+}

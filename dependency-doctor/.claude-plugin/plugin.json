@@ -1,0 +1,20 @@
+{
+  "name": "dependency-doctor",
+  "description": "Analyzes dependencies before installation: bundle size, vulnerabilities, license compatibility, breaking changes, and alternatives.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gowtham"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/dependency-doctor",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": [
+    "dependencies",
+    "security",
+    "vulnerabilities",
+    "license",
+    "bundle-size",
+    "npm",
+    "pip"
+  ]
+}

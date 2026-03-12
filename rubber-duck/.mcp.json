@@ -1,0 +1,11 @@
+{
+  "rubber-duck": {
+    "type": "stdio",
+    "command": "uvx",
+    "args": [
+      "--from", "fastmcp",
+      "fastmcp", "run",
+      "${CLAUDE_PLUGIN_ROOT}/src/server.py"
+    ]
+  }
+}

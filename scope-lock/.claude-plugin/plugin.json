@@ -1,0 +1,19 @@
+{
+  "name": "scope-lock",
+  "description": "Prevent scope creep. Define exact files/directories Claude can touch. PreToolUse hooks block Read/Write/Edit outside the boundary.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gowtham"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/scope-lock",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": [
+    "scope",
+    "boundaries",
+    "safety",
+    "file-access",
+    "guard",
+    "focus"
+  ]
+}

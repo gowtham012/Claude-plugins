@@ -5,14 +5,12 @@
 <h1 align="center">Pitlane Plugins for Claude Code</h1>
 
 <p align="center">
-  <strong>Three open-source plugins that give Claude Code superpowers — persistent memory, deep video understanding, and disciplined engineering.</strong>
+  <strong>13 open-source plugins that give Claude Code superpowers — session memory, video understanding, disciplined engineering, cost tracking, rollback, scope control, and more.</strong>
 </p>
 
 <p align="center">
   <a href="#quick-start">Quick Start</a> &bull;
-  <a href="#-carry-forward">carry-forward</a> &bull;
-  <a href="#-video-insight">video-insight</a> &bull;
-  <a href="#-deep-engineer">deep-engineer</a> &bull;
+  <a href="#plugins">Plugins</a> &bull;
   <a href="#contributing">Contributing</a> &bull;
   <a href="#license">License</a>
 </p>
@@ -58,9 +56,19 @@ Inside Claude Code, run:
 /plugin install carry-forward@Claude-plugins
 /plugin install video-insight@Claude-plugins
 /plugin install deep-engineer@Claude-plugins
+/plugin install cost-guard@Claude-plugins
+/plugin install rubber-duck@Claude-plugins
+/plugin install rollback@Claude-plugins
+/plugin install regression-sentinel@Claude-plugins
+/plugin install time-capsule@Claude-plugins
+/plugin install scope-lock@Claude-plugins
+/plugin install diff-narrator@Claude-plugins
+/plugin install dependency-doctor@Claude-plugins
+/plugin install pair-mode@Claude-plugins
+/plugin install codebase-onboard@Claude-plugins
 ```
 
-That's it. All three plugins are ready to use.
+Install any combination — each plugin works independently.
 
 ---
 
@@ -335,6 +343,166 @@ your-project/
 
 - Python 3.10+
 - `uvx` (installed automatically with `uv`)
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-cost--guard-yellow?style=for-the-badge" alt="cost-guard" />
+
+### Track token spending and enforce budgets.
+
+Estimates cost per session, warns at thresholds, and can hard-block tool calls when budget is exceeded.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/cost-guard:setup` | One-time project setup |
+| `/cost-guard:budget` | Set or view spending budget |
+| `/cost-guard:report` | Detailed cost breakdown |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-rubber--duck-pink?style=for-the-badge" alt="rubber-duck" />
+
+### Explain before you code.
+
+Forces Claude to describe its approach in plain English and get user approval before writing any code. Write/Edit tools are physically blocked until approved.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/rubber-duck:setup` | One-time project setup |
+| `/rubber-duck:explain` | Start or submit an explanation |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-rollback-gray?style=for-the-badge" alt="rollback" />
+
+### One-command undo for any Claude action.
+
+Automatically snapshots files before/after every Write/Edit. Roll back any number of actions instantly.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/rollback:setup` | One-time project setup |
+| `/rollback:rollback` | Undo the last N actions |
+| `/rollback:rollback-list` | Show recent tracked actions |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-regression--sentinel-darkred?style=for-the-badge" alt="regression-sentinel" />
+
+### Continuous regression watcher.
+
+Runs tests automatically after every file edit. Detects regressions instantly and can auto-revert breaking changes.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/regression-sentinel:setup` | One-time project setup |
+| `/regression-sentinel:configure` | Set test command and auto-revert |
+| `/regression-sentinel:status` | View test pass/fail history |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-time--capsule-teal?style=for-the-badge" alt="time-capsule" />
+
+### Git checkpoint auto-saver.
+
+Creates lightweight git stash snapshots before risky edits and on demand. Browse and restore any checkpoint.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/time-capsule:setup` | One-time project setup |
+| `/time-capsule:checkpoint` | Create a named checkpoint |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-scope--lock-darkblue?style=for-the-badge" alt="scope-lock" />
+
+### Prevent scope creep.
+
+Define exact files/directories Claude can touch. PreToolUse hooks block Read/Write/Edit/Bash/Glob/Grep outside the boundary.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/scope-lock:setup` | One-time project setup |
+| `/scope-lock:lock` | Lock scope to specific paths |
+| `/scope-lock:unlock` | Remove scope restrictions |
+| `/scope-lock:status` | View current scope |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-diff--narrator-purple?style=for-the-badge" alt="diff-narrator" />
+
+### Auto-narrate every edit.
+
+After every edit, generates a plain-English summary. Maintains a running changelog and produces PR-ready descriptions.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/diff-narrator:setup` | One-time project setup |
+| `/diff-narrator:summary` | View recent change narrations |
+| `/diff-narrator:pr-description` | Generate PR-ready description |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-dependency--doctor-green?style=for-the-badge" alt="dependency-doctor" />
+
+### Analyze before you install.
+
+Checks vulnerabilities, license compatibility, and package info before installation. Blocks unapproved installs.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/dependency-doctor:setup` | One-time project setup |
+| `/dependency-doctor:analyze` | Analyze a package |
+| `/dependency-doctor:audit` | Audit all project dependencies |
+| `/dependency-doctor:approve` | Approve a package for install |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-pair--mode-orange?style=for-the-badge" alt="pair-mode" />
+
+### Ping-pong pair programming.
+
+Claude writes a block, pauses for human review, then continues. Tracks approval rate and enforces review cadence.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/pair-mode:setup` | One-time project setup |
+| `/pair-mode:pair` | Start a pair session |
+| `/pair-mode:stats` | View pair stats |
+
+---
+
+<br/>
+
+## <img src="https://img.shields.io/badge/plugin-codebase--onboard-cyan?style=for-the-badge" alt="codebase-onboard" />
+
+### Instant codebase onboarding.
+
+Analyzes your codebase and generates an onboarding guide: architecture overview, tech stack, directory structure, key files, and getting started.
+
+| Skill | What it does |
+|:------|:-------------|
+| `/codebase-onboard:onboard` | Generate onboarding guide |
+| `/codebase-onboard:find` | Search the guide |
+| `/codebase-onboard:refresh` | Refresh the guide |
 
 ---
 

@@ -1,0 +1,23 @@
+{
+  "name": "diff-narrator",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Auto-narrates every edit. Running changelog and PR-ready descriptions."
+  },
+  "plugins": [
+    {
+      "name": "diff-narrator",
+      "source": "./",
+      "description": "Auto-narrates every edit. Running changelog and PR-ready descriptions.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/diff-narrator",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["changelog","diff","narration","pr-description","documentation"]
+    }
+  ]
+}

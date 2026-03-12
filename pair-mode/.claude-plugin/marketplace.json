@@ -1,0 +1,23 @@
+{
+  "name": "pair-mode",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Ping-pong pair programming. Claude writes a block, pauses for review, tracks approval rate."
+  },
+  "plugins": [
+    {
+      "name": "pair-mode",
+      "source": "./",
+      "description": "Ping-pong pair programming. Claude writes a block, pauses for review, tracks approval rate.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/pair-mode",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["pair-programming","review","workflow","collaboration"]
+    }
+  ]
+}

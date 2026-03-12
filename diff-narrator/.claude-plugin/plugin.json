@@ -1,0 +1,18 @@
+{
+  "name": "diff-narrator",
+  "description": "After every edit, generates a plain-English summary of what changed and why. Maintains a running changelog and produces PR-ready descriptions.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gowtham"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/diff-narrator",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": [
+    "changelog",
+    "diff",
+    "narration",
+    "pr-description",
+    "documentation"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "time-capsule",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Git checkpoint auto-saver. Creates lightweight git stash snapshots before risky edits."
+  },
+  "plugins": [
+    {
+      "name": "time-capsule",
+      "source": "./",
+      "description": "Git checkpoint auto-saver. Creates lightweight git stash snapshots before risky edits.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/time-capsule",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["git","checkpoint","undo","backup","safety"]
+    }
+  ]
+}

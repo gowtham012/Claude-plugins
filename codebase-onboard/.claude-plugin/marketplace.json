@@ -1,0 +1,23 @@
+{
+  "name": "codebase-onboard",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Generates codebase onboarding guide. Architecture, tech stack, key files, getting started."
+  },
+  "plugins": [
+    {
+      "name": "codebase-onboard",
+      "source": "./",
+      "description": "Generates codebase onboarding guide. Architecture, tech stack, key files, getting started.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/codebase-onboard",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["onboarding","architecture","documentation","codebase"]
+    }
+  ]
+}

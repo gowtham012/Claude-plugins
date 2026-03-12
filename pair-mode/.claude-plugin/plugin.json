@@ -1,0 +1,18 @@
+{
+  "name": "pair-mode",
+  "description": "Enforces ping-pong pair programming. Claude writes one block, pauses for human review, then continues. Tracks approval rate.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gowtham"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/pair-mode",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": [
+    "pair-programming",
+    "review",
+    "workflow",
+    "collaboration",
+    "ping-pong"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "rollback",
+  "description": "One-command undo for any Claude action. Logs every file change with before/after snapshots. More granular than git.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gowtham"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/rollback",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": [
+    "undo",
+    "rollback",
+    "snapshot",
+    "history",
+    "safety",
+    "recovery"
+  ]
+}

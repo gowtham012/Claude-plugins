@@ -1,0 +1,23 @@
+{
+  "name": "cost-guard",
+  "owner": {
+    "name": "Gowtham"
+  },
+  "metadata": {
+    "description": "Token budget and cost tracker. Estimates spending, warns at thresholds, blocks when exceeded."
+  },
+  "plugins": [
+    {
+      "name": "cost-guard",
+      "source": "./",
+      "description": "Token budget and cost tracker. Estimates spending, warns at thresholds, blocks when exceeded.",
+      "author": {
+        "name": "Gowtham"
+      },
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/cost-guard",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "license": "MIT",
+      "keywords": ["cost","budget","tokens","spending","tracker"]
+    }
+  ]
+}

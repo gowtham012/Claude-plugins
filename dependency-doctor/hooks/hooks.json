@@ -1,0 +1,16 @@
+{
+  "description": "Intercepts package install commands and blocks until analyzed",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/src/pretool_hook.py"
+          }
+        ]
+      }
+    ]
+  }
+}

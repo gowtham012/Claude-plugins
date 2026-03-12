@@ -4,7 +4,7 @@
     "name": "gowtham012"
   },
   "metadata": {
-    "description": "Claude Code plugins by Gowtham — carry-forward for session memory, video-insight for deep video understanding, deep-engineer for disciplined engineering loops."
+    "description": "13 Claude Code plugins by Gowtham — session memory, video understanding, disciplined engineering, cost tracking, rollback, scope control, regression testing, and more."
   },
   "plugins": [
     {
@@ -43,6 +43,106 @@
       "repository": "https://github.com/gowtham012/Claude-plugins",
       "keywords": ["tdd", "engineering", "testing", "autonomous", "loop", "discipline"],
       "category": "development-workflows"
+    },
+    {
+      "name": "cost-guard",
+      "source": "./cost-guard",
+      "description": "Token budget and cost tracker. Estimates spending per session, warns at thresholds, and can hard-block tool calls when budget is exceeded.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/cost-guard",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["cost", "budget", "tokens", "spending", "tracker"]
+    },
+    {
+      "name": "rubber-duck",
+      "source": "./rubber-duck",
+      "description": "Explain-before-code enforcement. Forces Claude to describe its approach in plain English and get approval before writing any code.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/rubber-duck",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["explain", "approval", "workflow", "safety", "review"]
+    },
+    {
+      "name": "rollback",
+      "source": "./rollback",
+      "description": "One-command undo for any Claude action. Snapshots files before/after every Write/Edit with instant rollback to any point.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/rollback",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["undo", "rollback", "snapshot", "safety", "revert"]
+    },
+    {
+      "name": "regression-sentinel",
+      "source": "./regression-sentinel",
+      "description": "Continuous regression watcher. Runs tests automatically after every file edit, detects regressions instantly, and can auto-revert breaking changes.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/regression-sentinel",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["testing", "regression", "ci", "auto-revert", "watcher"]
+    },
+    {
+      "name": "time-capsule",
+      "source": "./time-capsule",
+      "description": "Git checkpoint auto-saver. Creates lightweight git stash snapshots before risky edits and on demand. Browse and restore any checkpoint.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/time-capsule",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["git", "checkpoint", "undo", "backup", "safety"]
+    },
+    {
+      "name": "scope-lock",
+      "source": "./scope-lock",
+      "description": "Prevent scope creep. Define exact files/directories Claude can touch. PreToolUse hooks block Read/Write/Edit outside the boundary.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/scope-lock",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["scope", "boundaries", "safety", "file-access", "guard"]
+    },
+    {
+      "name": "diff-narrator",
+      "source": "./diff-narrator",
+      "description": "After every edit, generates a plain-English summary of what changed. Maintains a running changelog and produces PR-ready descriptions.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/diff-narrator",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["changelog", "diff", "narration", "pr-description", "documentation"]
+    },
+    {
+      "name": "dependency-doctor",
+      "source": "./dependency-doctor",
+      "description": "Analyzes dependencies before installation: vulnerabilities, license compatibility, and package info. Blocks unapproved installs.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/dependency-doctor",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["dependencies", "security", "vulnerabilities", "license", "npm", "pip"]
+    },
+    {
+      "name": "pair-mode",
+      "source": "./pair-mode",
+      "description": "Enforces ping-pong pair programming. Claude writes a block, pauses for human review, then continues. Tracks approval rate.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/pair-mode",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["pair-programming", "review", "workflow", "collaboration"]
+    },
+    {
+      "name": "codebase-onboard",
+      "source": "./codebase-onboard",
+      "description": "Analyzes your codebase and generates an onboarding guide: architecture overview, key patterns, directory structure, tech stack, and getting started.",
+      "author": { "name": "Gowtham" },
+      "license": "MIT",
+      "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/codebase-onboard",
+      "repository": "https://github.com/gowtham012/Claude-plugins",
+      "keywords": ["onboarding", "architecture", "documentation", "codebase"]
     }
   ]
 }

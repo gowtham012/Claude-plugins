@@ -1,0 +1,10 @@
+{
+  "name": "cost-guard",
+  "description": "Tracks token usage and API costs per session and task. Sets spending limits, warns when approaching budget, shows cost breakdown. Stop flying blind on costs.",
+  "version": "1.0.0",
+  "author": { "name": "Gowtham" },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/cost-guard",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": ["cost", "tokens", "budget", "spending", "usage", "tracking", "limits"]
+}

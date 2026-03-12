@@ -1,0 +1,18 @@
+{
+  "name": "rubber-duck",
+  "description": "Explain-before-you-code enforcer. Forces Claude to describe its approach in plain English and get user approval before writing any code.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Gowtham"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/gowtham012/Claude-plugins/tree/main/rubber-duck",
+  "repository": "https://github.com/gowtham012/Claude-plugins",
+  "keywords": [
+    "explanation",
+    "planning",
+    "communication",
+    "approval",
+    "discipline"
+  ]
+}
